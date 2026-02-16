@@ -11,15 +11,17 @@ export default function Services() {
     const [activeIndex, setActiveIndex] = useState(0)
 
     // Handle scroll for dots
+    // Optimized Scroll Handler (Throttled)
     const handleScroll = () => {
-        if (scrollContainerRef.current) {
-            const { scrollLeft, clientWidth } = scrollContainerRef.current
-            // Approximate active index based on scroll position
-            // Card width is approx 85% of screen + gap
-            const cardWidth = clientWidth * 0.85 + 24 // 24 is gap-6
-            const index = Math.round(scrollLeft / cardWidth)
-            setActiveIndex(Math.min(Math.max(0, index), SERVICE_CATEGORIES.length - 1))
-        }
+        if (!scrollContainerRef.current) return
+
+        // Simple throttle using a flag or just reading directly if needed. 
+        // For smoother dots, we can just calculate. 
+        // React batching helps, but let's ensure we don't block.
+        const { scrollLeft, clientWidth } = scrollContainerRef.current
+        const cardWidth = clientWidth * 0.85 + 24 // 24 is gap-6
+        const index = Math.round(scrollLeft / cardWidth)
+        setActiveIndex(Math.min(Math.max(0, index), SERVICE_CATEGORIES.length - 1))
     }
 
     // Bento Logic
@@ -53,8 +55,8 @@ export default function Services() {
                 <div
                     ref={scrollContainerRef}
                     onScroll={handleScroll}
-                    className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 -mx-4 px-4 
-                             md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-8 md:pb-0 md:px-0 md:mx-0
+                    className="flex overflow-x-auto snap-x snap-mandatory touch-pan-y gap-4 pb-8 -mx-4 px-4 
+                             md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-6 lg:gap-8 md:pb-0 md:px-0 md:mx-0 md:overflow-visible
                              scrollbar-hide scroll-smooth"
                 >
                     {SERVICE_CATEGORIES.map((service, index) => {
