@@ -6,7 +6,7 @@ import PasswordProtection from '@/components/PasswordProtection'
 
 // Lazy load below-the-fold components
 const TrustBar = lazy(() => import('@/components/TrustBar'))
-const BrandsCarousel = lazy(() => import('@/components/BrandsCarousel'))
+
 const Services = lazy(() => import('@/components/Services'))
 const WhyChooseUs = lazy(() => import('@/components/WhyChooseUs'))
 const Process = lazy(() => import('@/components/Process'))
@@ -61,9 +61,7 @@ export default function App() {
                         <Suspense fallback={<SectionLoader />}>
                             <Services />
                         </Suspense>
-                        <Suspense fallback={<SectionLoader />}>
-                            <BrandsCarousel />
-                        </Suspense>
+
                         <Suspense fallback={<SectionLoader />}>
                             <WhyChooseUs />
                         </Suspense>
