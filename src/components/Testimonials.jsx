@@ -63,17 +63,15 @@ export default function Testimonials() {
                     <TestimonialsColumn
                         testimonials={thirdColumn}
                         duration={100}
-                        className="block remove-scrollbar"
+                        className="hidden md:block remove-scrollbar"
                     />
 
-                    {/* Fallback for smaller screens to ensure at least one full column or merged data */}
-                    <div className="md:hidden contents">
-                        <TestimonialsColumn
-                            testimonials={[...firstColumn, ...secondColumn]}
-                            duration={40}
-                            className="block md:hidden remove-scrollbar"
-                        />
-                    </div>
+                    {/* Mobile Only Column (Shows ALL testimonials) */}
+                    <TestimonialsColumn
+                        testimonials={TESTIMONIALS}
+                        duration={60}
+                        className="block md:hidden remove-scrollbar"
+                    />
                 </div>
 
                 {/* Google Reviews Link */}
