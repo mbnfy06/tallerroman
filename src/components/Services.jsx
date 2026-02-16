@@ -80,19 +80,25 @@ export default function Services() {
                 </div>
 
                 {/* Mobile Scroll Indicator (Dots) & Arrows */}
-                <div className="flex items-center justify-center gap-4 md:hidden mb-8">
+                <div className="flex items-center justify-center gap-6 md:hidden mb-8">
                     {/* Left Arrow */}
                     <button
                         onClick={() => {
                             if (scrollContainerRef.current) {
-                                const cardWidth = scrollContainerRef.current.clientWidth * 0.85 + 16;
-                                scrollContainerRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                                const container = scrollContainerRef.current;
+                                const cardWidth = container.clientWidth * 0.85 + 16;
+
+                                if (activeIndex === 0) {
+                                    container.scrollTo({ left: container.scrollWidth, behavior: 'smooth' });
+                                } else {
+                                    container.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                                }
                             }
                         }}
-                        className="p-2 rounded-full bg-brand-elevated/50 text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95"
+                        className="p-3 rounded-full bg-brand-elevated text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95 shadow-lg border border-brand-border/50"
                         aria-label="Anterior"
                     >
-                        <ChevronLeft className="w-5 h-5" />
+                        <ChevronLeft className="w-6 h-6" />
                     </button>
 
                     {/* Dots */}
@@ -100,7 +106,7 @@ export default function Services() {
                         {SERVICE_CATEGORIES.map((_, i) => (
                             <div
                                 key={i}
-                                className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-6 bg-brand-accent' : 'w-1.5 bg-brand-border'
+                                className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-8 bg-brand-accent' : 'w-1.5 bg-brand-border'
                                     }`}
                             />
                         ))}
@@ -110,14 +116,20 @@ export default function Services() {
                     <button
                         onClick={() => {
                             if (scrollContainerRef.current) {
-                                const cardWidth = scrollContainerRef.current.clientWidth * 0.85 + 16;
-                                scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                                const container = scrollContainerRef.current;
+                                const cardWidth = container.clientWidth * 0.85 + 16;
+
+                                if (activeIndex === SERVICE_CATEGORIES.length - 1) {
+                                    container.scrollTo({ left: 0, behavior: 'smooth' });
+                                } else {
+                                    container.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                                }
                             }
                         }}
-                        className="p-2 rounded-full bg-brand-elevated/50 text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95"
+                        className="p-3 rounded-full bg-brand-elevated text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95 shadow-lg border border-brand-border/50"
                         aria-label="Siguiente"
                     >
-                        <ChevronRight className="w-5 h-5" />
+                        <ChevronRight className="w-6 h-6" />
                     </button>
                 </div>
 

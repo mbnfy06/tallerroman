@@ -82,7 +82,7 @@ export default function Navbar() {
             {typeof document !== 'undefined' && createPortal(
                 <div
                     className={cn(
-                        'fixed top-16 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden bg-brand-black/95 backdrop-blur-xl border-t border-brand-border md:hidden transition-all duration-300',
+                        'fixed top-16 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden bg-brand-black/95 backdrop-blur-xl border-t border-brand-border md:hidden transition-all duration-300 touch-none',
                         open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
                     )}
                 >
