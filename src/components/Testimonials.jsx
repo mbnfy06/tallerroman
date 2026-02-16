@@ -52,24 +52,24 @@ export default function Testimonials() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 h-[600px] overflow-hidden mask-fade-y">
                     <TestimonialsColumn
                         testimonials={firstColumn}
-                        duration={90}
+                        duration={140}
                         className="hidden lg:block remove-scrollbar"
                     />
                     <TestimonialsColumn
                         testimonials={secondColumn}
-                        duration={110}
+                        duration={160}
                         className="hidden md:block remove-scrollbar"
                     />
                     <TestimonialsColumn
                         testimonials={thirdColumn}
-                        duration={100}
+                        duration={150}
                         className="hidden md:block remove-scrollbar"
                     />
 
                     {/* Mobile Only Column (Shows ALL testimonials) */}
                     <TestimonialsColumn
                         testimonials={TESTIMONIALS}
-                        duration={60}
+                        duration={120}
                         className="block md:hidden remove-scrollbar"
                     />
                 </div>
