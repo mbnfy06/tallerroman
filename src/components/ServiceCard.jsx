@@ -19,7 +19,7 @@ export default function ServiceCard({ service, index, variant = 'default', class
                 // Base styles for all cards
                 "bg-brand-card border border-brand-border hover:border-brand-accent/30",
                 // Mobile Carousel Styles
-                "w-[85vw] md:w-auto min-w-[300px] md:min-w-0 snap-start snap-always flex-shrink-0",
+                "w-[85vw] md:w-auto min-w-[300px] md:min-w-0 snap-start flex-shrink-0",
                 // Large Variant Styles (Diagnosis)
                 isLarge && "md:col-span-2 bg-gradient-to-br from-brand-card via-brand-card to-brand-elevated/50",
                 // Full Variant Styles (Bottom Banner)

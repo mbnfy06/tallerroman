@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
@@ -77,44 +78,48 @@ export default function Navbar() {
                 </Button>
             </nav>
 
-            {/* Mobile Menu Overlay */}
-            <div
-                className={cn(
-                    'fixed top-[65px] right-0 bottom-0 left-0 z-50 flex flex-col overflow-hidden bg-brand-black/95 backdrop-blur-xl border-t border-brand-border md:hidden transition-all duration-300',
-                    open ? 'block opacity-100' : 'hidden opacity-0',
-                )}
-            >
+            {/* Mobile Menu Overlay - Portaled to escape Header stacking context */}
+            {typeof document !== 'undefined' && createPortal(
                 <div
                     className={cn(
-                        'flex h-full w-full flex-col justify-start gap-y-4 p-6 animate-in slide-in-from-top-2 duration-300',
+                        'fixed top-16 right-0 bottom-0 left-0 z-40 flex flex-col overflow-hidden bg-brand-black/95 backdrop-blur-xl border-t border-brand-border md:hidden transition-all duration-300',
+                        open ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
                     )}
                 >
-                    <div className="grid gap-y-1">
-                        {NAV_LINKS.map((link) => (
-                            <a
-                                key={link.label}
-                                className={cn(
-                                    buttonVariants({ variant: 'ghost', className: 'justify-start text-lg py-6' }),
-                                    "text-brand-muted hover:text-brand-text hover:bg-brand-elevated/30"
-                                )}
-                                href={link.href}
-                                onClick={() => setOpen(false)}
-                            >
-                                {link.label}
-                            </a>
-                        ))}
-                    </div>
-                    <div className="flex flex-col gap-3 mt-auto mb-8 border-t border-brand-border/30 pt-6">
-                        <Button variant="outline" className="w-full py-6 text-lg border-brand-accent/50 text-brand-accent hover:bg-brand-accent hover:text-white" asChild>
-                            <a href={BUSINESS.tel}>Llamar Ahora</a>
-                        </Button>
+                    <div
+                        className={cn(
+                            'flex h-full w-full flex-col justify-start gap-y-4 p-6',
+                            open ? 'animate-in slide-in-from-top-2' : ''
+                        )}
+                    >
+                        <div className="grid gap-y-1">
+                            {NAV_LINKS.map((link) => (
+                                <a
+                                    key={link.label}
+                                    className={cn(
+                                        buttonVariants({ variant: 'ghost', className: 'justify-start text-lg py-6' }),
+                                        "text-brand-muted hover:text-brand-text hover:bg-brand-elevated/30"
+                                    )}
+                                    href={link.href}
+                                    onClick={() => setOpen(false)}
+                                >
+                                    {link.label}
+                                </a>
+                            ))}
+                        </div>
+                        <div className="flex flex-col gap-3 mt-auto mb-8 border-t border-brand-border/30 pt-6">
+                            <Button variant="outline" className="w-full py-6 text-lg border-brand-accent/50 text-brand-accent hover:bg-brand-accent hover:text-white" asChild>
+                                <a href={BUSINESS.tel}>Llamar Ahora</a>
+                            </Button>
 
-                        <Button className="w-full py-6 text-lg shadow-lg shadow-brand-accent/20" asChild>
-                            <a href={BUSINESS.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-                        </Button>
+                            <Button className="w-full py-6 text-lg shadow-lg shadow-brand-accent/20" asChild>
+                                <a href={BUSINESS.whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                            </Button>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </div>,
+                document.body
+            )}
         </header>
     );
 }

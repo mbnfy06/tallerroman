@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react'
-import { MessageCircle } from 'lucide-react'
+import { MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react'
 import { BUSINESS } from '@/data/business'
 import { SERVICE_CATEGORIES } from '@/data/services'
 import ServiceCard from './ServiceCard'
@@ -79,15 +79,46 @@ export default function Services() {
                     })}
                 </div>
 
-                {/* Mobile Scroll Indicator (Dots) */}
-                <div className="flex justify-center gap-2 md:hidden mb-8">
-                    {SERVICE_CATEGORIES.map((_, i) => (
-                        <div
-                            key={i}
-                            className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-6 bg-brand-accent' : 'w-1.5 bg-brand-border'
-                                }`}
-                        />
-                    ))}
+                {/* Mobile Scroll Indicator (Dots) & Arrows */}
+                <div className="flex items-center justify-center gap-4 md:hidden mb-8">
+                    {/* Left Arrow */}
+                    <button
+                        onClick={() => {
+                            if (scrollContainerRef.current) {
+                                const cardWidth = scrollContainerRef.current.clientWidth * 0.85 + 16;
+                                scrollContainerRef.current.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+                            }
+                        }}
+                        className="p-2 rounded-full bg-brand-elevated/50 text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95"
+                        aria-label="Anterior"
+                    >
+                        <ChevronLeft className="w-5 h-5" />
+                    </button>
+
+                    {/* Dots */}
+                    <div className="flex gap-2">
+                        {SERVICE_CATEGORIES.map((_, i) => (
+                            <div
+                                key={i}
+                                className={`h-1.5 rounded-full transition-all duration-300 ${i === activeIndex ? 'w-6 bg-brand-accent' : 'w-1.5 bg-brand-border'
+                                    }`}
+                            />
+                        ))}
+                    </div>
+
+                    {/* Right Arrow */}
+                    <button
+                        onClick={() => {
+                            if (scrollContainerRef.current) {
+                                const cardWidth = scrollContainerRef.current.clientWidth * 0.85 + 16;
+                                scrollContainerRef.current.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                            }
+                        }}
+                        className="p-2 rounded-full bg-brand-elevated/50 text-brand-muted hover:text-white hover:bg-brand-accent transition-all active:scale-95"
+                        aria-label="Siguiente"
+                    >
+                        <ChevronRight className="w-5 h-5" />
+                    </button>
                 </div>
 
                 {/* CTA */}
