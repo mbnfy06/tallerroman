@@ -31,8 +31,13 @@ export default {
                 'slide-in-left': 'slideInLeft 0.6s ease-out forwards',
                 'slide-in-right': 'slideInRight 0.6s ease-out forwards',
                 'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                'marquee': 'marquee 40s linear infinite',
             },
             keyframes: {
+                marquee: {
+                    '0%': { transform: 'translateX(0)' },
+                    '100%': { transform: 'translateX(-50%)' },
+                },
                 fadeIn: {
                     '0%': { opacity: '0' },
                     '100%': { opacity: '1' },

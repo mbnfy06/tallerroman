@@ -129,9 +129,16 @@ export default function Contact() {
                         />
 
                         {/* Custom Overlay for better aesthetics */}
-                        <div className="absolute bottom-4 left-4 right-4 bg-brand-black/80 backdrop-blur-sm p-4 rounded-xl border border-brand-border/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10">
-                            <p className="text-xs text-brand-muted text-center">Ubicación en San Sebastián de los Reyes</p>
-                        </div>
+                        {/* Custom Overlay for better aesthetics - Clickable */}
+                        <a
+                            href={BUSINESS.googleMaps}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="absolute bottom-4 left-4 right-4 bg-brand-black/80 backdrop-blur-sm p-4 rounded-xl border border-brand-border/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-center justify-center gap-2 hover:bg-brand-black/90"
+                        >
+                            <Navigation className="w-4 h-4 text-brand-accent animate-pulse" />
+                            <p className="text-xs text-brand-muted font-medium">Ir a Taller con Google Maps</p>
+                        </a>
                     </div>
                 </div>
             </div>

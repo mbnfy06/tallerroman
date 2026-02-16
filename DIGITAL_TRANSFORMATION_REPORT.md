@@ -2,138 +2,141 @@
 **CLIENTE:** Taller Roman
 **AGENCIA:** MBNify (Simulación de Auditoría Premium)
 **FECHA:** 16 Febrero 2026
+**ESTADO:** 🔴 AUDITORÍA DE CÓDIGO PROFUNDA REALIZADA
 
 ---
 
 ## 1️⃣ ANÁLISIS DE PERCEPCIÓN PREMIUM
 
 **¿Esta web parece de 500€ o de 5.000€?**
-Actualmente se sitúa en el rango de **1.200€ - 1.500€**.
-Es limpia, funcional y moderna, pero **no grita "Lujo" ni "Autoridad Absoluta"**. Se nota la mano de un desarrollador competente, pero falta el toque de un *Brand Designer* de clase mundial.
+**Veredicto: 1.500€ - 1.800€**.
+He analizado el código fuente (`src/components/*`) y la arquitectura es sólida (React + Vite + Tailwind + Framer Motion). Hay "intención" de diseño (Lazy Motion, Scroll Observers), pero la ejecución visual sigue reglas de "plantilla premium" en lugar de "identidad de marca única".
 
 **¿Transmite autoridad real?**
-Parcialmente. Transmite "somos un taller ordenado". No transmite "somos los ingenieros automotrices más fiables de tu ciudad".
+NO. Transmite "somos un taller moderno", pero no "somos los únicos que pueden tocar tu coche".
+El uso de iconos estándar de `lucide-react` (Wrench, Car, FileCheck) en `TrustBar.jsx` abarata la percepción inmediatamente. Un taller de 5.000€ no usa iconos de stock; usa logotipos de marcas, certificaciones ISO escaneadas, o tipografía numérica de alto impacto.
 
 **¿Se ve genérica o diferenciada?**
-Generica. El esquema Dark Mode + Rojo es un clásico (y cliché) en automoción. Las grids de servicios y beneficios son estructuras estándar. No hay nada que diga "wow, esto es diferente" en los primeros 3 segundos.
-
-**Factores que la hacen parecer "amateur" (para el nivel de 5k):**
-*   **Gradientes Plandos:** Los fondos son demasiado planos (`bg-brand-black`). Falta profundidad, texturas sutiles (noise), o efectos de luz volurmétricos.
-*   **Bordes Simples:** Los bordes de las tarjetas (`border-brand-border`) son de 1px sólido. El diseño premium usa bordes con gradientes sutiles, glow effects o glassmorphism de alta calidad.
-*   **Tipografía Estática:** Aunque `Outfit` es buena, el kerning y leading parecen predeterminados.
+GENÉRICA.
+El esquema de color definido en `tailwind.config.js` (`brand-black: #0A0A0A`, `brand-accent: #E63946`) es el "Starter Pack" de cualquier web de automoción dark mode. No hay un color secundario que rompa (ej. un Plata Metálico o un Azul Eléctrico sutil).
 
 ---
 
 ## 2️⃣ REDISEÑO VISUAL ESTRATÉGICO
 
-Para elevar el ticket a 5.000€, necesitamos dejar de diseñar una "web" y empezar a diseñar una "experiencia de marca".
+**Problema Detectado en Código:**
+En `Hero.jsx`, usas un "gradient mesh" con divs absolutos y `blur-[120px]`. Esto es técnica de 2023.
+En `Process.jsx`, la línea de tiempo es buena, pero los iconos son burbujas genéricas.
 
-**ESTÉTICA GENERAL: "INDUSTRIAL LUXURY"**
-Inspiración: Webs de Porsche Design, Rimac o Tesla Dark Mode.
+**PROPUESTA DE ELEVACIÓN (INDUSTRIAL LUXURY):**
 
-### Mejoras Específicas:
+1.  **Hero "Cinemático" (Reemplazo de `Hero.jsx`):**
+    *   **Actual:** Divs estáticos con blur.
+    *   **Propuesta:** Fondo de video granulado (Noise Overlay) con opacidad al 20%. Título con efecto de texto "recortado" sobre el video.
+    *   **Tipografía:** Cambiar `Outfit` por una combinación de **`Manrope`** (técnica) y **`Oswald`** (fuerza) para titulares.
 
-1.  **Paleta de Colores & Profundidad:**
-    *   **Eliminar:** El negro absoluto plano (#0A0A0A).
-    *   **Implementar:** `Rich Black` (#050505) con gradientes radiales muy sutiles en gris azulado oscuro (#1a1f2c) detrás de los elementos clave para dar volumen.
-    *   **Acento:** Mantener el Rojo (#E63946) pero usarlo como **luz**, no solo como pintura. Usar `box-shadow` con color rojo para crear efectos de neón/glow en botones y bordes activos.
+2.  **Bento Grid "Ingeniería" (Reemplazo de `Services.jsx`):**
+    *   **Actual:** Grid 3 columnas (`grid-cols-3`). Aburrido.
+    *   **Propuesta:** Grid Asimétrica.
+        *   Caja Grande (2x2): "Diagnosis Electrónica" con una animación de radar escaneando.
+        *   Caja Alta (1x2): "Mecánica Rápida" con lista vertical.
+        *   Cajas Pequeñas: Iconos de servicios específicos.
+    *   *Referencia Visual:* Webs de Apple (sección specs) o Rimac.
 
-2.  **Jerarquía y Tipografía:**
-    *   **H1:** Aumentar tracking (espaciado entre letras) en mayúsculas para dar sensación premium (ej. `tracking-tight` en títulos grandes, `tracking-widest` en subtítulos pequeños).
-    *   **Números:** Usar una fuente monoespaciada (ej. `JetBrains Mono` o `Geist Mono`) para precios, números de teléfono o estadísticas técnicas. Da un toque "ingeniería de precisión".
+3.  **Trust Bar "Autoridad" (Reemplazo de `TrustBar.jsx`):**
+    *   **Eliminar:** Los iconos de Lucide (`Wrench`, `Car`).
+    *   **Insertar:** Logotipos de fabricantes (BMW, Audi, Mercedes, Grupo VAG) en blanco y negro con opacidad 30%. Al hacer hover, se iluminan a color completo. Esto grita "sabemos tocar estas máquinas".
 
-3.  **Componentes Modernos (Upgrade):**
-    *   **Hero:** Reemplazar el fondo estático por un **video cinemático oscuro en loop** con opacidad baja, o un efecto de partículas sutil interactivo con el mouse (Magic UI / Aceternity).
-    *   **Servicios (Bento Grid):** Abandonar la grid de 3 columnas iguales. Implementar un **Bento Grid asimétrico**. Algunos servicios merecen cuadros grandes (Diagnosis), otros pequeños. Esto rompe la monotonía y guía el ojo.
-    *   **Tarjetas con Efecto "Spotlight":** Al pasar el mouse, un foco de luz sigue el cursor sobre el borde de la tarjeta (Aceternity UI Spotlight Card).
-    *   **Separadores:** Usar líneas de gradiente que se desvanecen a los lados, no líneas sólidas.
+4.  **Paleta de Colores (Ajuste en `tailwind.config.js`):**
+    *   Añadir `brand-metallic`: `#E1E1E6` (Para textos que brillan).
+    *   Añadir `brand-carbon`: `#1C1C1E` (Para fondos de tarjeta, más sutil que el negro puro).
 
 ---
 
 ## 3️⃣ POSICIONAMIENTO ESTRATÉGICO
 
-El copy actual es correcto pero funcional. Necesitamos **emoción y autoridad**.
+**Análisis del Copy Actual (`Hero.jsx`):**
+*   *H1:* "Taller Mecánico Multimarca en San Sebastián de los Reyes" -> **Demasiado SEO, poca alma.**
+*   *Subtítulo:* "Diagnóstico experto, reparación de todas las marcas..." -> **Correcto, pero olvidable.**
 
-**Propuesta de Valor Actual:** *Taller Mecánico Multimarca en San Sebastián de los Reyes.* (Aburrido)
+**NUEVA ESTRATEGIA DE MENSAJE:**
 
-**NUEVO ENFOQUE ESTRATÉGICO:**
-
-*   **Nuevo H1 Premium:**
-    > **INGENIERÍA AUTOMOTRIZ DE PRECISIÓN.**
-    > *Tu coche merece más que un simple mecánico.*
+*   **Nuevo H1:**
+    > **PRECISIÓN ABSOLUTA.**
+    > **INGENIERÍA AUTOMOTRIZ.**
 
 *   **Nuevo Subtítulo:**
-    > Diagnosis clínica, mantenimiento multimarca y transparencia radical. El taller de confianza para quienes aman su coche en San Sebastián de los Reyes.
+    > "Tu coche no es solo transporte. Es una máquina compleja que merece manos expertas. Diagnosis clínica y mantenimiento de alto rendimiento en San Sebastián de los Reyes."
 
-*   **Sección Diferenciación (El "Killer Feature"):**
-    *   En lugar de "Por qué elegirnos", llámalo: **"EL ESTÁNDAR ROMAN"**.
-    *   Punto 1: **Diagnosis Quirúrgica.** (No adivinamos, escaneamos).
-    *   Punto 2: **Transparencia Radical.** (Te enviamos vídeo de la avería antes de reparar).
-    *   Punto 3: **Garantía Blindada.**
+*   **Sección Diferencial ("The Roman Standard"):**
+    *   Crear una sección nueva donde expliques el protocolo:
+        1.  Recepción & Escáner Inicial.
+        2.  Video-Informe al cliente (Transparencia).
+        3.  Reparación con recambio original.
+        4.  Control de Calidad Final.
 
 ---
 
-## 4️⃣ CRO – NIVEL ELITE (Conversión)
+## 4️⃣ CRO – NIVEL ELITE
 
-**Evaluación:** El botón de WhatsApp es bueno, pero falta urgencia y reducción de fricción real.
+**Análisis de `MobileBottomBar.jsx`:**
+Actualmente tiene un gradiente `h-4` para disimular el corte. Se ve "barato".
+Los botones son `flex-1` (50% cada uno).
 
-**Mejoras Críticas:**
-
-1.  **Bloque de Confianza (Trust Stack):** Justo debajo del botón del Hero, colocar logos de marcas de alta gama (BMW, Mercedes, Audi) en escala de grises con opacidad baja. Mensaje subliminal: "Si tocan estos coches, pueden tocar el mío".
-2.  **Sticky Mobile CTA (Evolución):** Asegurar que en móvil haya un **botón flotante inferior fijo** que diga: "📅 Pedir Cita / 💬 WhatsApp" dividido en dos, siempre visible al hacer scroll.
-3.  **Prueba Social Específica:** En la sección de contacto, poner una mini-reviw: *"Me ahorraron 300€ comparado con el concesionario oficial"*. Justo al lado del formulario.
+**Mejoras de Conversión:**
+1.  **Jerarquía en Móvil:** El botón "Llamar" debe ser el 70% del ancho (Urgencia) y ser Rojo Sólido. El de WhatsApp puede ser un icono flotante o el 30% restante en gris oscuro.
+2.  **Formulario en `Contact.jsx`:**
+    *   Añadir un campo: "¿Qué coche tienes?". Esto cualifica el lead mentalmente ("ah, les importa mi coche").
+    *   Cambiar botón "Enviar" por "Solicitar Diagnóstico Gratuito".
 
 ---
 
 ## 5️⃣ SEO DE NIVEL SUPERIOR
 
-**Estructura Actual:**
-*   H1: Taller Mecánico Multimarca... (Bien)
-*   Keywords: San Sebastián de los Reyes (Bien)
+**Estructura H1-H6:**
+*   El H1 está bien técnicamente, pero semánticamente pobre.
+*   Faltan **Geopages invisibles**.
 
 **Estrategia "Dominio Local":**
-1.  **Cluster de Contenidos Invisibles:** Crear bloques de acordeón (FAQ) al final de la home con preguntas como: *"¿Buscáis taller Audi en San Sebastián de los Reyes?", "¿Cambio de correa en Alcobendas?"*. Esto rankea sin ensuciar el diseño visual.
-2.  **Schema Markup Avanzado:** No solo `LocalBusiness`. Implementar `AutoRepair`, `openingHours`, `priceRange`, y `aggregateRating` (conectado a las reviews de Google) para que aparezcan las estrellitas en los resultados de búsqueda.
-3.  **Geopages:** Si quieres clientes de Alcobendas y La Moraleja, el H2 del footer debe incluir: *"Servicio premium para San Sebastián de los Reyes, Alcobendas y Zona Norte de Madrid".*
+1.  **Footer Cluster:** En `Footer.jsx`, añadir una sección colapsable "Zonas de Servicio": Alcobendas, La Moraleja, Sanse, Fuente del Fresno.
+2.  **Schema Avanzado:** El código actual no tiene JSON-LD inyectado. Necesitas un componente `<SEOSchema />` que inyecte dinámicamente el `LocalBusiness` script en el head.
 
 ---
 
-## 6️⃣ EXPERIENCIA MÓVIL
+## 6️⃣ EXPERIENCIA MÓVIL (Análisis de Código)
 
-**Evaluación:**
-Existe un `MobileBottomBar`, lo cual es excelente. Pero hay que revisar el "thumb zone" (zona del pulgar).
-
-**Mejoras:**
-1.  **Menú Hamburguesa Animado:** En lugar de un menú simple que baja, usar una animación que ocupe toda la pantalla con letras grandes (Estilo Awwwards).
-2.  **Botones Grandes:** En móvil, los botones de acción deben ser de ancho completo (full width) y con altura mínima de 48px para evitar "fat finger".
+He revisado `Navbar.jsx`.
+El menú móvil ocupa toda la pantalla con `fixed insert-0`. Bien.
+Pero la animación es `slide-in-from-top-4`.
+**Propuesta Premium:**
+*   El menú móvil debe sentirse como una APP nativa.
+*   Animación: `AnimatePresence` de Framer Motion. El fondo se desenfoca (`backdrop-blur-xl`) y las opciones entran en cascada (staggered) desde abajo, no desde arriba.
 
 ---
 
 ## 7️⃣ PERFORMANCE Y CALIDAD TÉCNICA
 
-**React + Vite + Tailwind** es una base excelente. Es rápida.
+**Estado Actual:**
+Usa `useIntersectionObserver` personalizado. Bien optimizado.
+Usa `lucide-react`. Ligero.
 
 **Mejoras Técnicas:**
-1.  **Carga Diferida (Lazy Load) de Imágenes:** Crítico si ponemos mapas o fotos de fondo.
-2.  **Fuentes:** Asegurar que `Outfit` y `Inter` se sirven localmente o con `font-display: swap` para evitar el parpadeo de texto (FOUT).
-3.  **Animaciones (Framer Motion):**
-    *   Reemplazar las clases CSS `animate-on-scroll` por **Framer Motion `whileInView`**. Es mucho más suave y profesional. Permite efectos de "stagger" (que los elementos aparezcan en cascada 1, 2, 3) mucho más naturales.
+1.  **Preload de Fuentes:** Asegurar que las fuentes se cargan con `preload` en el HTML para evitar el salto visual.
+2.  **Reducción de Repaints:** En `Process.jsx`, la animación de la línea (`scaleY`) puede causar repaints si no se usa `will-change: transform`. Verificar optimización GPU.
 
 ---
 
 ## 8️⃣ PLAN DE TRANSFORMACIÓN (Priorizado)
 
-### 🔴 FASE 1: CRÍTICO (Impacto Inmediato en Ventas)
-1.  **Copywriting del Hero:** Cambiar H1 y Subtítulo por la nueva versión de autoridad.
-2.  **Trust Bar:** Añadir logos de marcas de coches debajo del Hero.
-3.  **Sticky CTA Móvil:** Revisar y perfeccionar la barra inferior en móvil para máxima conversión.
+### 🔴 FASE 1: AUTORIDAD VISUAL (El "Cambio de Cara")
+1.  **Trust Bar:** Reemplazar iconos genéricos por logos de marcas de coches (BMW, Audi, etc).
+2.  **Hero Copy:** Cambiar H1 a "PRECISIÓN ABSOLUTA".
+3.  **Hero Background:** Añadir textura "Noise" sobre el fondo negro para eliminar el efecto "plano".
 
-### 🟠 FASE 2: ESTRATÉGICO (Posicionamiento)
-1.  **Sección Servicios:** Convertir la grid aburrida en un **Bento Grid** moderno.
-2.  **Sección "El Estándar Roman":** Rediseñar los beneficios comunes a propuestas de valor únicas.
-3.  **SEO Schema:** Implementar JSON-LD completo.
+### 🟠 FASE 2: UX PREMIUM
+1.  **Bento Grid:** Rediseñar la sección Servicios para que no parezca una plantilla.
+2.  **Process Timeline:** Mejorar los iconos de la línea de tiempo.
 
-### 🟢 FASE 3: AESTHETIC (El factor "5.000€")
-1.  **Spotlight Effects:** Añadir efectos de luz al pasar el mouse por las tarjetas.
-2.  **Partículas/Fondo:** Mejorar el fondo del Hero para que tenga profundidad.
-3.  **Micro-interacciones:** Botones que reaccionan magnéticamente o con brillos al hacer click.
+### 🟢 FASE 3: DETALLES DE 5.000€
+1.  **Cursor Personalizado:** Un circulo sutil que sigue al mouse (solo en desktop).
+2.  **Sonidos UI:** Click sounds muy sutiles (casi imperceptibles) en los botones principales.

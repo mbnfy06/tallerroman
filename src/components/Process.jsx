@@ -86,7 +86,13 @@ export default function Process() {
 
                     <div className="space-y-12 lg:space-y-16 relative z-10">
                         {STEPS.map((step, index) => (
-                            <ProcessStep key={index} step={step} index={index} total={STEPS.length} />
+                            <ProcessStep
+                                key={index}
+                                step={step}
+                                index={index}
+                                total={STEPS.length}
+                                scrollProgress={scaleY}
+                            />
                         ))}
                     </div>
                 </div>
@@ -95,8 +101,33 @@ export default function Process() {
     )
 }
 
-function ProcessStep({ step, index, total }) {
+function ProcessStep({ step, index, total, scrollProgress }) {
     const Icon = step.icon
+
+    // Calculate the threshold for this specific step
+    const stepThreshold = index / (total - 1 || 1)
+
+    // Create transform for the active state
+    // Used a small range around the threshold for smooth transition
+    const isActiveStart = Math.max(0, stepThreshold - 0.05)
+
+    const borderColor = useTransform(
+        scrollProgress,
+        [isActiveStart, stepThreshold],
+        ["rgba(42, 42, 42, 1)", "rgba(230, 57, 70, 1)"] // brand-border to brand-accent
+    )
+
+    const glowOpacity = useTransform(
+        scrollProgress,
+        [isActiveStart, stepThreshold],
+        [0, 1]
+    )
+
+    const iconColor = useTransform(
+        scrollProgress,
+        [isActiveStart, stepThreshold],
+        ["#A0A0A0", "#FFFFFF"] // muted to white
+    )
 
     return (
         <motion.div
@@ -106,24 +137,50 @@ function ProcessStep({ step, index, total }) {
             transition={{ duration: 0.5, delay: index * 0.1 }}
             className="relative flex gap-8 lg:gap-12"
         >
-            {/* Step Icon Bubble - w-16 means 4rem width */}
+            {/* Step Icon Bubble */}
             <div className="relative flex-shrink-0">
-                <div className="w-16 h-16 lg:w-16 lg:h-16 rounded-full flex items-center justify-center border-4 border-brand-black bg-brand-card shadow-lg z-10 relative overflow-hidden group">
-                    {/* Fill effect on hover/active */}
-                    <div className="absolute inset-0 bg-brand-accent opacity-0 group-hover:opacity-10 transition-opacity duration-300" />
-                    <Icon className="w-6 h-6 text-brand-muted group-hover:text-white relative z-10 transition-colors duration-300" />
-                </div>
+                {/* Active Glow effect (Scroll Driven) */}
+                <motion.div
+                    style={{ opacity: glowOpacity }}
+                    className="absolute inset-0 bg-brand-accent/40 rounded-full blur-xl transition-all duration-300"
+                />
+
+                <motion.div
+                    style={{ borderColor: borderColor }}
+                    className="w-16 h-16 lg:w-16 lg:h-16 rounded-full flex items-center justify-center border bg-brand-card/90 backdrop-blur-sm shadow-xl z-10 relative overflow-hidden transition-all duration-300"
+                >
+                    {/* Fill effect animates in */}
+                    <motion.div
+                        style={{ opacity: glowOpacity }}
+                        className="absolute inset-0 bg-gradient-to-tr from-brand-accent to-brand-accent-hover opacity-20"
+                    />
+
+                    {/* Icon with Color Transform */}
+                    <motion.div style={{ color: iconColor }} className="relative z-10">
+                        <Icon className="w-7 h-7" strokeWidth={1.5} />
+                    </motion.div>
+                </motion.div>
+
                 {/* Number Badge */}
-                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-brand-accent flex items-center justify-center border-2 border-brand-black z-20">
+                <motion.div
+                    style={{
+                        backgroundColor: borderColor,
+                        borderColor: borderColor
+                    }}
+                    className="absolute -top-1 -right-1 w-6 h-6 rounded-full border flex items-center justify-center z-20 shadow-md transition-colors duration-300 bg-brand-card"
+                >
                     <span className="text-[10px] font-bold text-white">{index + 1}</span>
-                </div>
+                </motion.div>
             </div>
 
             {/* Content */}
             <div className="pt-2">
-                <h3 className="font-heading font-bold text-xl lg:text-2xl text-brand-text mb-3 flex items-center gap-3">
+                <motion.h3
+                    style={{ color: useTransform(scrollProgress, [isActiveStart, stepThreshold], ["#F5F5F5", "#E63946"]) }}
+                    className="font-heading font-bold text-xl lg:text-2xl mb-3 flex items-center gap-3 transition-colors duration-300"
+                >
                     {step.title}
-                </h3>
+                </motion.h3>
                 <p className="text-brand-muted leading-relaxed text-base lg:text-lg">
                     {step.description}
                 </p>

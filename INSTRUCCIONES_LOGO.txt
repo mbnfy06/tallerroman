@@ -1,0 +1,14 @@
+
+📍 INSTRUCCIONES PARA EL LOGO
+
+Para que el diseño funcione correctamente, sigue estos pasos:
+
+1.  Copia tu archivo de logo original (Negro y Neón).
+2.  Pégalo en esta carpeta (la raíz del proyecto):
+    c:\Users\marco\Documents\MBN!FY\tallerroman\
+3.  Renómbralo a:
+    mbnify.png
+
+Una vez hecho esto, la web lo detectará automáticamente y lo mostrará con el efecto de brillo configurado.
+
+Si el archivo tiene otro nombre, por favor dímelo para actualizar el código.

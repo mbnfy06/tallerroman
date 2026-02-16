@@ -21,7 +21,7 @@ export const BUSINESS = {
     whatsapp: 'https://wa.me/34643597332?text=Hola%2C%20necesito%20informaci%C3%B3n%20sobre%20un%20servicio%20para%20mi%20veh%C3%ADculo.',
     whatsappShort: 'https://wa.me/34643597332',
     tel: 'tel:+34643597332',
-    googleMaps: 'https://share.google/3o61cbRDoofcY68sH',
+    googleMaps: 'https://www.google.com/maps/dir//Taller+Roman+Multimarca,+C.+Cervantes,+10,+28701+San+Sebasti%C3%A1n+de+los+Reyes,+Madrid',
     googleMapsEmbed: '',
 }
 

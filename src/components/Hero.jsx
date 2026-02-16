@@ -16,18 +16,26 @@ export default function Hero() {
                     }}
                 />
 
-                {/* Gradient mesh effect */}
-                <div className="absolute inset-0 opacity-30">
-                    <div className="absolute top-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-brand-accent/10 blur-[120px]" />
-                    <div className="absolute bottom-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-brand-accent/5 blur-[100px]" />
+                {/* Noise Texture Overlay */}
+                <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none z-10"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+                    }}
+                />
+
+                {/* Gradient mesh effect - Adjusted for depth and mobile performance */}
+                <div className="absolute inset-0 opacity-40">
+                    <div className="absolute top-0 -left-1/4 w-[800px] h-[800px] rounded-full bg-brand-accent/5 blur-[60px] md:blur-[120px]" />
+                    <div className="absolute bottom-0 -right-1/4 w-[600px] h-[600px] rounded-full bg-blue-900/10 blur-[50px] md:blur-[100px]" />
                 </div>
-                {/* Grid pattern overlay */}
+
+                {/* Grid pattern overlay - More subtle */}
                 <div
-                    className="absolute inset-0 opacity-[0.03]"
+                    className="absolute inset-0 opacity-[0.02]"
                     style={{
                         backgroundImage:
                             'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
-                        backgroundSize: '60px 60px',
+                        backgroundSize: '40px 40px',
                     }}
                 />
             </div>
